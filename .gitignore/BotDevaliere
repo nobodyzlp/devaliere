@@ -1,0 +1,42 @@
+const Discord = require("discord.js")
+const client = new Discord.Client()
+
+client.on('ready', () => {
+  console.log('Logged in')
+})
+
+client.on('message', msg => {
+  if (msg.content === 'Bonjour M.Devaliere !') {
+    const dev = client.emojis.find("name", "dev")
+    msg.channel.sendMessage("Bonjour à tous " + dev)
+  }else if (msg.content == 'Devaliere, raconte nous une blague !') {
+    setTimeout(function(){msg.channel.sendMessage("D'accord, mais faites le silence !")},1000);
+    setTimeout(function(){msg.channel.sendMessage("x et x² sont sur un bateau. x tombe à l'eau, qui reste sur le bateau ?")},2000);
+  }else if (msg.content == 'Je donne ma langue aux chats...') {
+    setTimeout(function(){msg.channel.sendMessage("2x puisque x² a dérivé !")},1000);
+  }
+  var command = msg.content.split(' ')[0]
+  var args = msg.content.split(' ').slice(1)
+
+
+  if (command == 'PAF')
+  {
+    var kicked = msg.guild.member(msg.mentions.users.first())
+    if (!kicked)
+    {
+      msg.channel.sendMessage("C'est qui lui ? J'le connait pas !")
+    }else{
+      kicked.kick().then( () => {
+        const rip = client.emojis.find("name", "rip")
+        msg.channel.sendMessage("PAF, j'le nique ! ")
+        msg.channel.sendMessage('' + rip)
+      })
+    }
+  }else if (command == 'Citation') {
+    var mes = args.join(' ')
+    msg.channel.sendMessage(mes)
+    msg.delete()
+  }
+})
+
+client.login(process.env.TOKEN'NDE2OTc3NTA1Njg2MjU3NjY0.DXMVaQ.Z478SaCTNpEbRxQB6NRvgBPWRoo')
